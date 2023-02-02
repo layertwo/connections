@@ -1,0 +1,5 @@
+pyairports==2.1.1
+plotly==5.13.0
+pandas==1.5.3
+black==23.1.0
+isort==5.12.0
