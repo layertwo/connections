@@ -13,9 +13,27 @@ def convert_airport_to_coords(iata: str):
     return airport.lat, airport.lon
 
 
-def draw_map(df_airports: pd.DataFrame, df_flight_paths: pd.DataFrame):
+def draw_map(df_airports: pd.DataFrame, df_flight_paths: pd.DataFrame) -> go.Figure:
     """Generate map from flights and airports"""
-    fig = go.Figure()
+    fig = go.Figure(
+        layout=dict(
+            # title_text="2022",
+            showlegend=False,
+            autosize=True,
+            geo=dict(
+                fitbounds="locations",
+                showframe=False,
+                projection=dict(
+                    type="natural earth1",
+                ),
+                showland=True,
+                showsubunits=True,
+                showcountries=True,
+                landcolor="rgb(243, 243, 243)",
+                countrycolor="rgb(204, 204, 204)",
+            ),
+        )
+    )
 
     fig.add_trace(
         go.Scattergeo(
@@ -40,19 +58,14 @@ def draw_map(df_airports: pd.DataFrame, df_flight_paths: pd.DataFrame):
             )
         )
 
-    fig.update_layout(
-        title_text="2022",
-        showlegend=False,
-        geo=dict(
-            scope="north america",
-            projection_type="azimuthal equal area",
-            showland=True,
-            landcolor="rgb(243, 243, 243)",
-            countrycolor="rgb(204, 204, 204)",
-        ),
-    )
+    return fig
 
-    fig.show()
+
+def save_map(fig: go.Figure, filename: str) -> None:
+    file_format = "png"
+    image = fig.to_image(format=file_format, width=1920, height=1080, scale=10)
+    with open(f"{filename}.{file_format}", "wb") as fp:
+        fp.write(image)
 
 
 def get_unique_airports(df: pd.DataFrame) -> pd.DataFrame:
@@ -77,9 +90,9 @@ def main():
         df_flight_paths["dst_iata"].apply(convert_airport_to_coords).apply(pd.Series)
     )
 
-    draw_map(df_airports, df_flight_paths)
-
-    filename = "map.png"
+    filename = "map"
+    m = draw_map(df_airports, df_flight_paths)
+    save_map(m, filename)
 
 
 if __name__ == "__main__":
