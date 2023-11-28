@@ -20,15 +20,24 @@ class ImageFormat(Enum):
 
 
 class FlightMap:
-    def __init__(self, flights: Flights, image_format: ImageFormat = ImageFormat.PNG) -> None:
+    def __init__(
+        self, flights: Flights, title: str, image_format: ImageFormat = ImageFormat.PNG
+    ) -> None:
         self._flights = flights
+        self._title = title
         self._image_format = image_format
 
     def draw(self) -> go.Figure:
         """Generate map from flights and airports"""
         fig = go.Figure(
             layout=dict(
-                # title_text="2022",
+                title=go.layout.Title(
+                    text=self._title,
+                    font=dict(family="Arial", size=50),
+                    xanchor="center",
+                    yanchor="top",
+                    x=0.5,
+                ),
                 showlegend=False,
                 autosize=True,
                 geo=dict(
@@ -47,24 +56,12 @@ class FlightMap:
         for flight in self._flights:
             fig.add_traces(
                 [
-                    # add source IATA point
+                    # add IATA markers
                     go.Scattergeo(
-                        lon=[flight.src_lon],
-                        lat=[flight.src_lat],
+                        lon=[flight.src_lon, flight.dst_lon],
+                        lat=[flight.src_lat, flight.dst_lat],
                         hoverinfo="text",
-                        text=flight.src_iata,
-                        mode="markers",
-                        marker=dict(
-                            size=15,
-                            line=dict(width=3),
-                        ),
-                    ),
-                    # add dest IATA point
-                    go.Scattergeo(
-                        lon=[flight.dst_lon],
-                        lat=[flight.dst_lat],
-                        hoverinfo="text",
-                        text=flight.dst_iata,
+                        text=f"{flight.src_iata} -> {flight.dst_iata}",
                         mode="markers",
                         marker=dict(
                             size=15,
@@ -76,7 +73,7 @@ class FlightMap:
                         lon=[flight.src_lon, flight.dst_lon],
                         lat=[flight.src_lat, flight.dst_lat],
                         mode="lines",
-                        line=dict(width=2),  # color="orange"),
+                        line=dict(width=2),
                     ),
                 ]
             )
@@ -89,9 +86,11 @@ class FlightMap:
 
     @lru_cache()
     def to_image(self, width: int = 1920, height: int = 1080):
-        return self.fig.to_image(format=self._image_format.value, width=width, height=height, scale=10)
+        return self.fig.to_image(
+            format=self._image_format.value, width=width, height=height, scale=10
+        )
 
     def save(self, filename: str) -> None:
         image = self.to_image()
-        with open(f"{filename}.{self._image_format.value}", "wb") as fp:
+        with open(filename, "wb") as fp:
             fp.write(image)

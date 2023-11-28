@@ -8,7 +8,7 @@ readme = "README.md"
 
 
 [tool.poetry.scripts]
-connections = "connections.main:main"
+connections = "connections.main:render"
 
 
 [tool.poetry.dependencies]
@@ -17,6 +17,7 @@ pyairports = "^2.1.1"
 plotly = "^5.18.0"
 dataclasses-json = "^0.6.2"
 geojson = "^3.1.0"
+click = "^8.1.7"
 
 
 [tool.poetry.group.dev.dependencies]
