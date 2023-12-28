@@ -7,14 +7,6 @@ from pyairports.airports import Airports
 from connections.model import Flights
 
 
-@lru_cache()
-def convert_airport_to_coords(iata: str):
-    """Get airport lat/lon from iata code"""
-    airport_client = Airports()
-    airport = airport_client.lookup(iata)
-    return airport.lat, airport.lon
-
-
 class ImageFormat(Enum):
     PNG = "png"
 
