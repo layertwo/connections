@@ -14,7 +14,7 @@ connections = "connections.main:render"
 [tool.poetry.dependencies]
 python = "^3.9"
 pyairports = "^2.1.1"
-plotly = "^5.19.0"
+plotly = "^5.20.0"
 dataclasses-json = "^0.6.4"
 geojson = "^3.1.0"
 click = "^8.1.7"
