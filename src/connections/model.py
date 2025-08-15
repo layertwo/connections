@@ -27,10 +27,7 @@ class Flight:
     @classmethod
     def from_dict(cls, data: dict) -> "Flight":
         """Create Flight instance from dictionary"""
-        return cls(
-            src_iata=data["src_iata"],
-            dst_iata=data["dst_iata"]
-        )
+        return cls(src_iata=data["src_iata"], dst_iata=data["dst_iata"])
 
     @property
     def src_lat(self) -> float:
