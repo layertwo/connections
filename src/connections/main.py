@@ -16,7 +16,3 @@ def render(input_filename: str, output_filename: str, title: str) -> None:
     flights: Flights = [Flight.from_dict(d) for d in data]
     fm = FlightMap(flights=flights, title=title)
     fm.save(filename=output_filename)
-
-
-if __name__ == "__main__":
-    main()

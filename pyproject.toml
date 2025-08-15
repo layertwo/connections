@@ -12,19 +12,18 @@ connections = "connections.main:render"
 
 
 [tool.poetry.dependencies]
-python = "^3.9"
-pyairports = "^2.1.1"
-plotly = "^6.0.0"
-dataclasses-json = "^0.6.6"
-geojson = "^3.1.0"
-click = "^8.1.7"
-setuptools = "^80.0.0"
+python = "^3.10"
+airports-py = "^2.0.0"
+plotly = "^6.3.0"
+geojson = "^3.2.0"
+click = "^8.2.1"
+setuptools = "^80.9.0"
 kaleido = "0.2.1"
 
 
 [tool.poetry.group.dev.dependencies]
-isort = "^6.0.0"
-black = "^25.0.0"
+isort = "^6.0.1"
+black = "^25.1.0"
 
 
 [build-system]
