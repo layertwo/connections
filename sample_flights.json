@@ -1,0 +1,42 @@
+[
+  {
+    "src_iata": "LAX",
+    "dst_iata": "JFK"
+  },
+  {
+    "src_iata": "LHR",
+    "dst_iata": "CDG"
+  },
+  {
+    "src_iata": "NRT",
+    "dst_iata": "ICN"
+  },
+  {
+    "src_iata": "DXB",
+    "dst_iata": "SIN"
+  },
+  {
+    "src_iata": "SYD",
+    "dst_iata": "AKL"
+  },
+  {
+    "src_iata": "JFK",
+    "dst_iata": "LHR"
+  },
+  {
+    "src_iata": "SFO",
+    "dst_iata": "NRT"
+  },
+  {
+    "src_iata": "FRA",
+    "dst_iata": "DXB"
+  },
+  {
+    "src_iata": "YYZ",
+    "dst_iata": "LAX"
+  },
+  {
+    "src_iata": "GRU",
+    "dst_iata": "LIS"
+  }
+]
