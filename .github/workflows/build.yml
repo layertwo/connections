@@ -20,5 +20,11 @@ jobs:
       uses: snok/install-poetry@v1
     - name: Install dependencies
       run: poetry install
+    - name: Run code formatting checks
+      run: |
+        poetry run black --check src/ tests/
+        poetry run isort --check-only src/ tests/
+    - name: Run tests
+      run: poetry run pytest
     - name: Build package
       run: poetry build
