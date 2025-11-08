@@ -24,7 +24,7 @@ kaleido = "0.2.1"
 [tool.poetry.group.dev.dependencies]
 isort = "^7.0.0"
 black = "^25.1.0"
-pytest = "^8.4.1"
+pytest = "^9.0.0"
 pytest-mock = "^3.14.1"
 pytest-cov = "^7.0.0"
 
