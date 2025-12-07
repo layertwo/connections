@@ -13,7 +13,7 @@ connections = "connections.main:render"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-airports-py = "^2.0.0"
+airports-py = "^3.0.0"
 plotly = "^6.3.0"
 geojson = "^3.2.0"
 click = "^8.2.1"
