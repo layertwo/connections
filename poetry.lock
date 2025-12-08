@@ -2,14 +2,17 @@
 
 [[package]]
 name = "airports-py"
-version = "2.0.0"
+version = "3.0.0"
 description = "A comprehensive library providing easy retrieval of airport data based on IATA, ICAO, city codes, country codes, and continents. Features geographic search, distance calculation, timezone lookup, and external links integration."
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "airports_py-2.0.0-py3-none-any.whl", hash = "sha256:f71bb9820da915e135636354d380135ad858a3715fd1ec37832a3c30a61c33d8"},
-    {file = "airports_py-2.0.0.tar.gz", hash = "sha256:122e85733da33b09034d22b300638956272b3f94e29f45731880a40c81635f7f"},
+    {file = "airports_py-3.0.0-py3-none-any.whl", hash = "sha256:f5105be7e377ac6637f94cb6c1ccb085a378c521dae19ed374ae2aaa78a22cfd"},
+    {file = "airports_py-3.0.0.tar.gz", hash = "sha256:c1c26aae9a77c3456d211f9fd55eef7fa10d2bcc8ec9522e5ad12d80ae4cede5"},
 ]
+
+[package.extras]
+dev = ["build (>=1.0.0)", "pytest (>=7.0.0)", "pytest-cov (>=4.0.0)", "twine (>=4.0.0)"]
 
 [[package]]
 name = "black"
@@ -532,4 +535,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "0dce90fac39d7969fdf00b84a7933d0ec783d0d3ced390a3af79eca793579469"
+content-hash = "0acc9dee6b86b228fd1bf8263d1520b844de85cb3ba774f68a53323e21ea78f9"
