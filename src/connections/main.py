@@ -1,9 +1,11 @@
 import json
 import logging
+from pathlib import Path
 
 import click
 
 from connections.batch import BatchProcessor
+from connections.index import IndexGenerator
 from connections.map import FlightMap
 from connections.model import Flight, Flights
 
@@ -44,6 +46,27 @@ def batch(input_directory: str, output_directory: str) -> None:
             click.echo(f"  - {file_path}")
     else:
         click.echo("No flight maps were generated.")
+
+
+@cli.command()
+@click.option("-d", "--directory", type=click.Path(exists=True), required=True)
+@click.option("-o", "--output", type=str, default=None)
+def index(directory: str, output: str) -> None:
+    """Generate index.html from PNG files in a directory"""
+    generator = IndexGenerator()
+    maps = generator.scan_output_directory(directory)
+
+    if not maps:
+        click.echo("No PNG files found in directory.")
+        return
+
+    # Default output path is index.html in the same directory
+    if output is None:
+        output = str(Path(directory) / "index.html")
+
+    generator.generate(maps=maps, output_path=output)
+    click.echo(f"Generated index page at {output}")
+    click.echo(f"Found {len(maps)} flight map(s)")
 
 
 if __name__ == "__main__":
