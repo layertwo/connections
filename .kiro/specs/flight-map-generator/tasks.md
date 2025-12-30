@@ -56,19 +56,19 @@ This plan implements batch flight map generation with AWS CDK deployment for sta
   - **Property 10: HTML Link Correctness**
   - **Validates: Requirements 4.3**
 
-- [ ] 4. Create HTML template
+- [x] 4. Create HTML template
   - Create `src/connections/templates/index.html.j2`
   - Implement responsive grid layout
   - Add thumbnail previews with clickable links
   - Display map titles
   - _Requirements: 4.2, 4.3, 4.4_
 
-- [ ] 5. Add index generation CLI command or script
+- [x] 5. Add index generation CLI command or script
   - Add command to generate index.html from output directory
   - Can be integrated into batch command or separate script
   - _Requirements: 4.1, 4.5_
 
-- [ ] 6. Checkpoint - Ensure all tests pass
+- [x] 6. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 7. Create CDK infrastructure
