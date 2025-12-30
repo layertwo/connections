@@ -1,26 +1,42 @@
+---
+inclusion: always
+---
+
 # Product Overview
 
-Connections is a Python CLI tool that generates interactive flight connection maps by visualizing flight routes between airports on a world map.
+Connections is a Python CLI tool that generates flight connection map visualizations from airport route data.
 
-## Core Functionality
+## Purpose
 
-- Accepts JSON input containing flight data with IATA airport codes
-- Automatically looks up airport coordinates using the airports-py library
-- Generates high-resolution PNG visualizations using Plotly
-- Creates interactive maps with airport markers and flight route lines
-- Supports global airport coverage via IATA codes
+Visualize flight routes between airports on a world map by converting IATA airport codes into geographic coordinates and rendering them as PNG images with Plotly.
 
-## Use Cases
+## Key Constraints
 
-- Personal travel history visualization
-- Airline route network mapping
-- Regional flight connection analysis
-- Geographic flight data presentation
+- **Input**: JSON array with flight objects containing `src_iata` and `dst_iata` fields (3-letter IATA codes)
+- **Output**: PNG images only (1920x1080 default resolution)
+- **Coordinate Source**: airports-py library for IATA → lat/lon conversion
+- **Projection**: Natural Earth projection for global visualization
+- **Performance**: Coordinate lookups are cached to minimize API calls
 
-## Input Format
+## User Workflow
 
-JSON array of flight objects with `src_iata` and `dst_iata` fields (3-letter IATA codes).
+1. User provides JSON file with flight data via `-i` flag
+2. Tool validates IATA codes and looks up coordinates
+3. Tool generates Plotly figure with geo layout
+4. Tool exports PNG to specified output path via `-o` flag
+5. Optional custom title via `-t` flag
 
-## Output
+## Design Principles
 
-High-resolution PNG images (1920x1080 default) with geographic projections, airport markers, and connecting flight lines.
+- **Simplicity**: Single command execution, no interactive mode
+- **Reliability**: Fail fast on invalid IATA codes or missing airports
+- **Performance**: Cache coordinate lookups and image generation
+- **Clarity**: Visual output should clearly show routes and airports
+
+## Expected Behavior
+
+- Each flight renders as a line connecting source and destination airports
+- Airport markers appear at coordinate locations
+- Map uses geographic projection suitable for global routes
+- Invalid IATA codes should raise clear errors
+- Missing input files should fail gracefully with helpful messages
