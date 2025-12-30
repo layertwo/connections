@@ -8,7 +8,7 @@ readme = "README.md"
 
 
 [tool.poetry.scripts]
-connections = "connections.main:render"
+connections = "connections.main:cli"
 
 
 [tool.poetry.dependencies]

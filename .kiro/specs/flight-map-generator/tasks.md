@@ -25,7 +25,7 @@ This plan implements batch flight map generation with AWS CDK deployment for sta
   - **Property 3: Error Isolation**
   - **Validates: Requirements 2.5, 2.6, 8.1, 8.2**
 
-- [ ] 2. Add batch CLI command
+- [x] 2. Add batch CLI command
   - Extend `src/connections/main.py` with `batch` command
   - Add `--input-directory` and `--output-directory` options
   - Integrate with `BatchProcessor`
