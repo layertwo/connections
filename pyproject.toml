@@ -12,21 +12,21 @@ connections = "connections.main:render"
 
 
 [tool.poetry.dependencies]
-python = "^3.10"
-airports-py = "^3.0.0"
-plotly = "^6.3.0"
-geojson = "^3.2.0"
-click = "^8.2.1"
+python = "^3.11"
+airports-py = "3.0.0"
+plotly = "6.5.0"
+geojson = "3.2.0"
+click = "8.3.1"
 setuptools = "^80.9.0"
 kaleido = "0.2.1"
 
 
 [tool.poetry.group.dev.dependencies]
-isort = "^7.0.0"
-black = "^25.1.0"
-pytest = "^9.0.0"
-pytest-mock = "^3.14.1"
-pytest-cov = "^7.0.0"
+isort = "7.0.0"
+black = "25.12.0"
+pytest = "9.0.2"
+pytest-mock = "3.15.1"
+pytest-cov = "7.0.0"
 
 
 [build-system]
