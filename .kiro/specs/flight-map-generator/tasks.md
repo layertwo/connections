@@ -37,7 +37,7 @@ This plan implements batch flight map generation with AWS CDK deployment for sta
   - Test integration with BatchProcessor
   - Test backward compatibility
 
-- [ ] 3. Implement index page generator
+- [x] 3. Implement index page generator
   - Create `src/connections/index.py` with `IndexGenerator` class
   - Create `MapMetadata` dataclass
   - Implement directory scanning for PNG files
