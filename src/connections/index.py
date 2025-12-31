@@ -6,6 +6,8 @@ from typing import List, Optional
 from jinja2 import FileSystemLoader, PackageLoader
 from jinja2.sandbox import SandboxedEnvironment
 
+from connections.utils import ensure_directory_exists
+
 logger = logging.getLogger(__name__)
 
 
@@ -48,7 +50,7 @@ class IndexGenerator:
         html_content = template.render(maps=maps)
 
         output_file = Path(output_path)
-        output_file.parent.mkdir(parents=True, exist_ok=True)
+        ensure_directory_exists(output_file.parent)
 
         with open(output_file, "w", encoding="utf-8") as fp:
             fp.write(html_content)
