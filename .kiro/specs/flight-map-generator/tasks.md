@@ -114,13 +114,13 @@ This plan implements batch flight map generation with AWS CDK deployment for sta
   - Add sample JSON files for testing
   - _Requirements: 9.1, 9.2_
 
-- [ ] 11. Update dependencies
+- [x] 11. Update dependencies
   - Add `jinja2` to pyproject.toml
   - Add `hypothesis` to dev dependencies
   - Update README with new batch command usage
   - _Requirements: All_
 
-- [ ] 12. Create .gitignore entries
+- [x] 12. Create .gitignore entries
   - Add `output/` directory to .gitignore
   - Add `cdk.out/` to .gitignore
   - Add CDK-specific ignores

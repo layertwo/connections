@@ -130,3 +130,12 @@ dmypy.json
 
 # image types
 *.png
+
+!cdk/lib
+
+# Output directory for generated flight maps
+output/
+
+# CDK
+cdk.out/
+.cdk.staging/
