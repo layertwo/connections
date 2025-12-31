@@ -73,11 +73,12 @@ This plan implements batch flight map generation with AWS CDK deployment for sta
 
 - [ ] 7. Create CDK infrastructure
   - Create `cdk/` directory structure
-  - Create `cdk/app.py` as CDK entry point
-  - Create `cdk/stacks/flight_map_stack.py` with S3 bucket and deployment
+  - Create `cdk/lib/app.ts` as CDK entry point
+  - Create `cdk/lib/connections.ts` with S3 bucket, CloudFront, and Route53 configuration
   - Create `cdk/cdk.json` configuration file
-  - Create `cdk/requirements.txt` with CDK dependencies
-  - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
+  - Create `cdk/package.json` with CDK dependencies
+  - Create `cdk/tsconfig.json` for TypeScript configuration
+  - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 5.10_
 
 - [ ]* 7.1 Write CDK stack tests
   - Test bucket configuration (website hosting, public access)
