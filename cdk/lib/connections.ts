@@ -74,7 +74,7 @@ export class ConnectionsStack extends Stack {
         new ARecord(this, "AliasRecord", {
             zone: this.hostedZone,
             recordName: this.props.domainName,
-            target: RecordTarget.fromAlias(new CloudFrontTarget(this.distribution)),
+            target: RecordTarget.fromAlias(new CloudFrontTarget(distribution)),
         });
 
         return distribution;
