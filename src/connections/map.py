@@ -18,19 +18,32 @@ class FlightMap:
         self._title = title
         self._image_format = image_format
 
-    def draw(self) -> go.Figure:
-        """Generate map from flights and airports"""
+    def draw(self, thumbnail: bool = False) -> go.Figure:
+        """Generate map from flights and airports
+
+        Args:
+            thumbnail: If True, optimize layout for thumbnail display
+        """
+        # Adjust layout for thumbnail vs full-size
+        if thumbnail:
+            title_config = None
+            margin_config = dict(l=0, r=0, t=0, b=0)
+        else:
+            title_config = go.layout.Title(
+                text=self._title,
+                font=dict(family="Arial", size=50),
+                xanchor="center",
+                yanchor="top",
+                x=0.5,
+            )
+            margin_config = dict(l=0, r=0, t=80, b=0)
+
         fig = go.Figure(
             layout=dict(
-                title=go.layout.Title(
-                    text=self._title,
-                    font=dict(family="Arial", size=50),
-                    xanchor="center",
-                    yanchor="top",
-                    x=0.5,
-                ),
+                title=title_config,
                 showlegend=False,
                 autosize=True,
+                margin=margin_config,
                 geo=dict(
                     fitbounds="locations",
                     showframe=False,
@@ -81,7 +94,40 @@ class FlightMap:
             format=self._image_format.value, width=width, height=height, scale=10
         )
 
+    def to_thumbnail(self, width: int = 640, height: int = 360) -> bytes:
+        """Generate thumbnail image at lower resolution with optimized layout"""
+        thumbnail_fig = self.draw(thumbnail=True)
+        return thumbnail_fig.to_image(
+            format=self._image_format.value, width=width, height=height, scale=5
+        )
+
     def save(self, filename: str) -> None:
         image = self.to_image()
         with open(filename, "wb") as fp:
             fp.write(image)
+
+    def save_with_thumbnail(self, filename: str) -> str:
+        """
+        Save both full-size image and thumbnail
+
+        Args:
+            filename: Path for the full-size image
+
+        Returns:
+            Path to the generated thumbnail file
+        """
+        # Save full-size image
+        self.save(filename)
+
+        # Generate thumbnail filename
+        from pathlib import Path
+
+        path = Path(filename)
+        thumbnail_path = path.parent / f"{path.stem}_thumb{path.suffix}"
+
+        # Save thumbnail
+        thumbnail_image = self.to_thumbnail()
+        with open(thumbnail_path, "wb") as fp:
+            fp.write(thumbnail_image)
+
+        return str(thumbnail_path)

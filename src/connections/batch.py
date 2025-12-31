@@ -87,8 +87,8 @@ class BatchProcessor:
         output_filename = f"{title}.png"
         output_path = self.output_dir / output_filename
 
-        # Create and save map
+        # Create and save map with thumbnail
         fm = FlightMap(flights=flights, title=title)
-        fm.save(filename=str(output_path))
+        fm.save_with_thumbnail(filename=str(output_path))
 
         return str(output_path)
