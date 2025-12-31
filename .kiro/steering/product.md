@@ -4,39 +4,93 @@ inclusion: always
 
 # Product Overview
 
-Connections is a Python CLI tool that generates flight connection map visualizations from airport route data.
+Connections is a Python CLI tool that generates flight connection map visualizations from airport route data. It converts IATA airport codes to geographic coordinates and renders them as PNG images using Plotly.
 
-## Purpose
+## Core Functionality
 
-Visualize flight routes between airports on a world map by converting IATA airport codes into geographic coordinates and rendering them as PNG images with Plotly.
+**Command**: `poetry run connections -i INPUT_FILE -o OUTPUT_FILE -t TITLE`
 
-## Key Constraints
+**Input Format** (JSON array):
+```json
+[
+  {"src_iata": "JFK", "dst_iata": "LHR"},
+  {"src_iata": "LAX", "dst_iata": "NRT"}
+]
+```
 
-- **Input**: JSON array with flight objects containing `src_iata` and `dst_iata` fields (3-letter IATA codes)
-- **Output**: PNG images only (1920x1080 default resolution)
-- **Coordinate Source**: airports-py library for IATA → lat/lon conversion
-- **Projection**: Natural Earth projection for global visualization
-- **Performance**: Coordinate lookups are cached to minimize API calls
+**Output**: PNG image (1920x1080) showing flight routes on a world map with Natural Earth projection
 
-## User Workflow
+## Critical Product Rules
 
-1. User provides JSON file with flight data via `-i` flag
-2. Tool validates IATA codes and looks up coordinates
-3. Tool generates Plotly figure with geo layout
-4. Tool exports PNG to specified output path via `-o` flag
-5. Optional custom title via `-t` flag
+### Input/Output Constraints
+- **IATA codes**: Must be valid 3-letter codes (e.g., JFK, LHR, NRT)
+- **JSON structure**: Array of objects with `src_iata` and `dst_iata` fields (exact field names required)
+- **Output format**: PNG only (no SVG, PDF, or interactive HTML)
+- **Resolution**: Fixed at 1920x1080 pixels
+- **Coordinate source**: airports-py library (external dependency, must be mocked in tests)
 
-## Design Principles
+### Error Handling Requirements
+- **Invalid IATA codes**: Raise descriptive exceptions immediately (fail fast)
+- **Missing airports**: Clear error message indicating which code failed
+- **File I/O errors**: Propagate with context (e.g., "Cannot read input file: path/to/file.json")
+- **No silent failures**: All errors must be visible to the user
 
-- **Simplicity**: Single command execution, no interactive mode
-- **Reliability**: Fail fast on invalid IATA codes or missing airports
-- **Performance**: Cache coordinate lookups and image generation
-- **Clarity**: Visual output should clearly show routes and airports
+### Performance Requirements
+- **Coordinate lookups**: Must be cached using `@lru_cache()` to avoid repeated API calls
+- **Image generation**: Must be cached using `@cached_property` or `@lru_cache()`
+- **Rationale**: airports-py lookups and Plotly rendering are expensive operations
 
-## Expected Behavior
+## Visual Output Specifications
 
-- Each flight renders as a line connecting source and destination airports
-- Airport markers appear at coordinate locations
-- Map uses geographic projection suitable for global routes
-- Invalid IATA codes should raise clear errors
-- Missing input files should fail gracefully with helpful messages
+### Map Rendering
+- Each flight = line connecting source and destination coordinates
+- Airport markers at all coordinate locations
+- Natural Earth projection for global route visualization
+- Title displayed prominently (user-configurable via `-t` flag)
+
+### When Modifying Visualizations
+- Maintain geographic accuracy (don't distort projections)
+- Ensure routes are clearly visible against map background
+- Keep consistent styling across all generated maps
+- Test with sample data from `flights/` directory
+
+## User Experience Principles
+
+### Simplicity
+- Single command execution (no interactive prompts or multi-step workflows)
+- Three required flags: `-i` (input), `-o` (output), `-t` (title)
+- No configuration files or environment setup beyond Poetry
+
+### Reliability
+- Validate all IATA codes before rendering
+- Fail fast with clear error messages
+- Never produce partial or corrupted output
+
+### Clarity
+- Visual output should immediately convey route connections
+- Error messages should guide users to fix issues (e.g., "Invalid IATA code 'XYZ' in flight 3")
+
+## AI Assistant Guidelines
+
+### When Adding Features
+- Preserve single-command simplicity (no new interactive modes)
+- Maintain PNG-only output constraint
+- Keep coordinate lookups cached
+- Add tests for new functionality
+
+### When Fixing Bugs
+- Verify fix with sample data from `flights/` directory
+- Ensure error messages remain clear and actionable
+- Run full test suite to prevent regressions
+
+### When Refactoring
+- Never remove caching decorators without performance justification
+- Maintain JSON input format compatibility
+- Keep CLI interface stable (flags: `-i`, `-o`, `-t`)
+
+## Sample Data Location
+
+Test your changes with real-world data in `flights/` directory:
+- `flights/north-america.json` - Regional routes
+- `flights/transatlantic.json` - Long-haul routes
+- `flights/world-tour.json` - Global coverage
