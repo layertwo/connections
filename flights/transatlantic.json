@@ -1,0 +1,22 @@
+[
+  {
+    "src_iata": "JFK",
+    "dst_iata": "LHR"
+  },
+  {
+    "src_iata": "BOS",
+    "dst_iata": "DUB"
+  },
+  {
+    "src_iata": "EWR",
+    "dst_iata": "CDG"
+  },
+  {
+    "src_iata": "ORD",
+    "dst_iata": "FRA"
+  },
+  {
+    "src_iata": "ATL",
+    "dst_iata": "AMS"
+  }
+]

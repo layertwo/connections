@@ -1,0 +1,38 @@
+[
+  {
+    "src_iata": "SFO",
+    "dst_iata": "NRT"
+  },
+  {
+    "src_iata": "NRT",
+    "dst_iata": "SIN"
+  },
+  {
+    "src_iata": "SIN",
+    "dst_iata": "DXB"
+  },
+  {
+    "src_iata": "DXB",
+    "dst_iata": "LHR"
+  },
+  {
+    "src_iata": "LHR",
+    "dst_iata": "JFK"
+  },
+  {
+    "src_iata": "JFK",
+    "dst_iata": "GRU"
+  },
+  {
+    "src_iata": "GRU",
+    "dst_iata": "JNB"
+  },
+  {
+    "src_iata": "JNB",
+    "dst_iata": "SYD"
+  },
+  {
+    "src_iata": "SYD",
+    "dst_iata": "SFO"
+  }
+]

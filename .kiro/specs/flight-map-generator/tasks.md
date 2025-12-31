@@ -109,7 +109,7 @@ This plan implements batch flight map generation with AWS CDK deployment for sta
   - Configure AWS credentials (OIDC or secrets)
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
 
-- [ ] 10. Add sample flight data
+- [x] 10. Add sample flight data
   - Create `flights/` directory
   - Add sample JSON files for testing
   - _Requirements: 9.1, 9.2_

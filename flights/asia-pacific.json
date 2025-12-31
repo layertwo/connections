@@ -1,0 +1,42 @@
+[
+  {
+    "src_iata": "NRT",
+    "dst_iata": "ICN"
+  },
+  {
+    "src_iata": "ICN",
+    "dst_iata": "PVG"
+  },
+  {
+    "src_iata": "PVG",
+    "dst_iata": "HKG"
+  },
+  {
+    "src_iata": "HKG",
+    "dst_iata": "SIN"
+  },
+  {
+    "src_iata": "SIN",
+    "dst_iata": "BKK"
+  },
+  {
+    "src_iata": "BKK",
+    "dst_iata": "DEL"
+  },
+  {
+    "src_iata": "DEL",
+    "dst_iata": "DXB"
+  },
+  {
+    "src_iata": "DXB",
+    "dst_iata": "SYD"
+  },
+  {
+    "src_iata": "SYD",
+    "dst_iata": "AKL"
+  },
+  {
+    "src_iata": "AKL",
+    "dst_iata": "NRT"
+  }
+]
