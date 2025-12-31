@@ -206,3 +206,57 @@ class TestFlightMap:
 
             # Should add traces for each flight (2 flights)
             assert mock_fig_instance.add_traces.call_count == len(mock_flights)
+
+    def test_to_thumbnail_default_parameters(self, mock_flights):
+        """Test to_thumbnail method with default parameters"""
+        flight_map = FlightMap(flights=mock_flights, title="Test Map")
+
+        with patch.object(flight_map, "draw") as mock_draw:
+            mock_fig = MagicMock()
+            mock_fig.to_image.return_value = b"mock_thumbnail_data"
+            mock_draw.return_value = mock_fig
+
+            result = flight_map.to_thumbnail()
+
+            mock_fig.to_image.assert_called_once_with(format="png", width=640, height=360, scale=5)
+            assert result == b"mock_thumbnail_data"
+
+    def test_to_thumbnail_custom_parameters(self, mock_flights):
+        """Test to_thumbnail method with custom parameters"""
+        flight_map = FlightMap(flights=mock_flights, title="Test Map")
+
+        with patch.object(flight_map, "draw") as mock_draw:
+            mock_fig = MagicMock()
+            mock_fig.to_image.return_value = b"mock_thumbnail_data"
+            mock_draw.return_value = mock_fig
+
+            result = flight_map.to_thumbnail(width=320, height=180)
+
+            mock_fig.to_image.assert_called_once_with(format="png", width=320, height=180, scale=5)
+            assert result == b"mock_thumbnail_data"
+
+    def test_save_with_thumbnail(self, mock_flights, tmp_path):
+        """Test save_with_thumbnail method creates both full and thumbnail images"""
+        flight_map = FlightMap(flights=mock_flights, title="Test Map")
+
+        with patch.object(flight_map, "to_image") as mock_to_image, patch.object(
+            flight_map, "to_thumbnail"
+        ) as mock_to_thumbnail:
+            mock_to_image.return_value = b"mock_full_image"
+            mock_to_thumbnail.return_value = b"mock_thumbnail_image"
+
+            output_file = tmp_path / "test_map.png"
+            thumbnail_path = flight_map.save_with_thumbnail(str(output_file))
+
+            # Check full image
+            assert output_file.exists()
+            assert output_file.read_bytes() == b"mock_full_image"
+
+            # Check thumbnail
+            expected_thumb_path = tmp_path / "test_map_thumb.png"
+            assert expected_thumb_path.exists()
+            assert expected_thumb_path.read_bytes() == b"mock_thumbnail_image"
+            assert thumbnail_path == str(expected_thumb_path)
+
+            mock_to_image.assert_called_once()
+            mock_to_thumbnail.assert_called_once()

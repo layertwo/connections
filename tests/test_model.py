@@ -6,6 +6,14 @@ import pytest
 from connections.model import Coordinates, Flight, convert_airport_to_coords
 
 
+@pytest.fixture(autouse=True)
+def clear_cache():
+    """Clear lru_cache before each test to prevent cross-test contamination"""
+    convert_airport_to_coords.cache_clear()
+    yield
+    convert_airport_to_coords.cache_clear()
+
+
 class TestCoordinates:
     def test_coordinates_creation(self):
         """Test Coordinates dataclass creation"""

@@ -18,6 +18,7 @@ class MapMetadata:
     title: str
     filename: str
     relative_path: str
+    thumbnail_path: Optional[str] = None
 
 
 class IndexGenerator:
@@ -81,13 +82,26 @@ class IndexGenerator:
 
         metadata_list = []
         for png_file in png_files:
+            # Skip thumbnail files (they end with _thumb)
+            if png_file.stem.endswith("_thumb"):
+                continue
+
             # Use filename (without extension) as title
             title = png_file.stem
             filename = png_file.name
             # Relative path for HTML links
             relative_path = f"./{filename}"
 
-            metadata = MapMetadata(title=title, filename=filename, relative_path=relative_path)
+            # Check if thumbnail exists
+            thumbnail_file = png_file.parent / f"{png_file.stem}_thumb{png_file.suffix}"
+            thumbnail_path = f"./{thumbnail_file.name}" if thumbnail_file.exists() else None
+
+            metadata = MapMetadata(
+                title=title,
+                filename=filename,
+                relative_path=relative_path,
+                thumbnail_path=thumbnail_path,
+            )
             metadata_list.append(metadata)
 
         return metadata_list
