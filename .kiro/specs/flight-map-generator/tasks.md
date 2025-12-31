@@ -125,7 +125,7 @@ This plan implements batch flight map generation with AWS CDK deployment for sta
   - Add `cdk.out/` to .gitignore
   - Add CDK-specific ignores
 
-- [ ] 13. Final checkpoint - Integration testing
+- [x] 13. Final checkpoint - Integration testing
   - Test end-to-end batch processing locally
   - Test index generation with sample data
   - Test CDK synthesis (`cdk synth`)
