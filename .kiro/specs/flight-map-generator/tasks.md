@@ -98,7 +98,7 @@ This plan implements batch flight map generation with AWS CDK deployment for sta
   - **Property 9: Directory Creation**
   - **Validates: Requirements 8.3**
 
-- [ ] 9. Create GitHub Actions workflow
+- [x] 9. Create GitHub Actions workflow
   - Create `.github/workflows/deploy.yml`
   - Configure trigger on push to main with changes in `flights/`
   - Add steps for Python/Poetry setup
