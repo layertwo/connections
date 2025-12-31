@@ -1,9 +1,15 @@
 import {Construct} from "constructs";
 
 import {RemovalPolicy, Stack, StackProps} from "aws-cdk-lib";
-import {Certificate} from "aws-cdk-lib/aws-certificatemanager";
-import {CachePolicy, Distribution, ViewerProtocolPolicy} from "aws-cdk-lib/aws-cloudfront";
-import {S3StaticWebsiteOrigin} from "aws-cdk-lib/aws-cloudfront-origins";
+import {Certificate, CertificateValidation} from "aws-cdk-lib/aws-certificatemanager";
+import {
+    CachePolicy,
+    Distribution,
+    S3OriginAccessControl,
+    Signing,
+    ViewerProtocolPolicy,
+} from "aws-cdk-lib/aws-cloudfront";
+import {S3BucketOrigin} from "aws-cdk-lib/aws-cloudfront-origins";
 import {ARecord, HostedZone, RecordTarget} from "aws-cdk-lib/aws-route53";
 import {CloudFrontTarget} from "aws-cdk-lib/aws-route53-targets";
 import {BlockPublicAccess, Bucket} from "aws-cdk-lib/aws-s3";
@@ -31,10 +37,10 @@ export class ConnectionsStack extends Stack {
     private buildBucket(): Bucket {
         return new Bucket(this, "ConnectionsBucket", {
             bucketName: "layertwo-connections-maps",
-            websiteIndexDocument: "index.html",
-            publicReadAccess: false,
             blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
             removalPolicy: RemovalPolicy.RETAIN_ON_UPDATE_OR_DELETE,
+            enforceSSL: true,
+            minimumTLSVersion: 1.2,
         });
     }
 
@@ -48,12 +54,19 @@ export class ConnectionsStack extends Stack {
         // Do certificate validation via email
         const certificate = new Certificate(this, "Certificate", {
             domainName: this.props.domainName,
+            validation: CertificateValidation.fromDns(this.hostedZone),
+        });
+
+        const oac = new S3OriginAccessControl(this, "OAC", {
+            signing: Signing.SIGV4_ALWAYS
         });
 
         // Create CloudFront distribution
         const distribution = new Distribution(this, "Distribution", {
             defaultBehavior: {
-                origin: new S3StaticWebsiteOrigin(this.bucket),
+                origin: S3BucketOrigin.withOriginAccessControl(this.bucket, {
+                    originAccessControl: oac,
+                }),
                 viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
                 cachePolicy: CachePolicy.CACHING_OPTIMIZED,
             },
@@ -63,11 +76,12 @@ export class ConnectionsStack extends Stack {
         });
 
         // Deploy files from output directory to S3
-        new BucketDeployment(this, "DeployConnectionss", {
+        new BucketDeployment(this, "BucketDeployment", {
             sources: [Source.asset("../output")],
             destinationBucket: this.bucket,
             distribution,
             distributionPaths: ["/*"],
+            prune: true,
         });
 
         // Create A record pointing to CloudFront distribution
