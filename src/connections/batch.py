@@ -5,6 +5,7 @@ from typing import List
 
 from connections.map import FlightMap
 from connections.model import Flight, Flights
+from connections.utils import ensure_directory_exists
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +38,7 @@ class BatchProcessor:
             raise ValueError(f"Input directory does not exist: {self.input_dir}")
 
         # Create output directory if it doesn't exist
-        self.output_dir.mkdir(parents=True, exist_ok=True)
+        ensure_directory_exists(self.output_dir)
 
         # Find all JSON files
         json_files = list(self.input_dir.glob("*.json"))

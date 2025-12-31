@@ -71,7 +71,7 @@ This plan implements batch flight map generation with AWS CDK deployment for sta
 - [x] 6. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 7. Create CDK infrastructure
+- [x] 7. Create CDK infrastructure
   - Create `cdk/` directory structure
   - Create `cdk/lib/app.ts` as CDK entry point
   - Create `cdk/lib/connections.ts` with S3 bucket, CloudFront, and Route53 configuration
@@ -89,7 +89,7 @@ This plan implements batch flight map generation with AWS CDK deployment for sta
   - **Property 6: CDK Deployment Completeness**
   - **Validates: Requirements 3.4, 3.5**
 
-- [ ] 8. Implement directory creation utility
+- [x] 8. Implement directory creation utility
   - Add utility function to create output directories if they don't exist
   - Integrate into BatchProcessor
   - _Requirements: 8.3_
