@@ -96,7 +96,7 @@ jobs:
 
       - name: CDK Deploy
         working-directory: cdk
-        run: npx cdk deploy --require-approval never --outputs-file outputs.json
+        run: npx cdk deploy --all --require-approval never --outputs-file outputs.json
 
       - name: Display deployment outputs
         working-directory: cdk
