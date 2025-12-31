@@ -44,12 +44,14 @@ class FlightMap:
                 showlegend=False,
                 autosize=True,
                 margin=margin_config,
+                paper_bgcolor="rgba(0,0,0,0)",
                 geo=dict(
                     fitbounds="locations",
                     showframe=False,
                     projection=dict(
                         type="natural earth1",
                     ),
+                    bgcolor="rgba(0,0,0,0)",
                     showland=True,
                     showsubunits=True,
                     showcountries=True,
