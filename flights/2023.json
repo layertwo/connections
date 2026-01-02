@@ -1,0 +1,90 @@
+[
+  {
+    "src_iata": "SEA",
+    "dst_iata": "MSP"
+  },
+  {
+    "src_iata": "MSP",
+    "dst_iata": "FLL"
+  },
+  {
+    "src_iata": "MIA",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "BNA"
+  },
+  {
+    "src_iata": "BNA",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "MSP"
+  },
+  {
+    "src_iata": "MSP",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "SNA"
+  },
+  {
+    "src_iata": "LAX",
+    "dst_iata": "LHR"
+  },
+  {
+    "src_iata": "LGW",
+    "dst_iata": "VRN"
+  },
+  {
+    "src_iata": "PRG",
+    "dst_iata": "ARN"
+  },
+  {
+    "src_iata": "ARN",
+    "dst_iata": "JFK"
+  },
+  {
+    "src_iata": "JFK",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "PAE",
+    "dst_iata": "SFO"
+  },
+  {
+    "src_iata": "SFO",
+    "dst_iata": "SBP"
+  },
+  {
+    "src_iata": "SBP",
+    "dst_iata": "SFO"
+  },
+  {
+    "src_iata": "SFO",
+    "dst_iata": "PAE"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "MSP"
+  },
+  {
+    "src_iata": "MSP",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "BNA"
+  },
+  {
+    "src_iata": "BNA",
+    "dst_iata": "ATL"
+  },
+  {
+    "src_iata": "ATL",
+    "dst_iata": "RSW"
+  }
+]

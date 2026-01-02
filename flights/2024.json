@@ -1,0 +1,58 @@
+[
+  {
+    "src_iata": "RSW",
+    "dst_iata": "MSP"
+  },
+  {
+    "src_iata": "MSP",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "MSP"
+  },
+  {
+    "src_iata": "MSP",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "BNA"
+  },
+  {
+    "src_iata": "BNA",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "MSP"
+  },
+  {
+    "src_iata": "MSP",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "BNA"
+  },
+  {
+    "src_iata": "BNA",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "PAE",
+    "dst_iata": "LAS"
+  },
+  {
+    "src_iata": "LAS",
+    "dst_iata": "PAE"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "ATL"
+  },
+  {
+    "src_iata": "ATL",
+    "dst_iata": "RSW"
+  }
+]
