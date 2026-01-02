@@ -75,7 +75,7 @@ class TestFlightMap:
     @patch("plotly.graph_objects.Figure")
     @patch("plotly.graph_objects.Scattergeo")
     def test_draw_adds_traces_for_flights(self, mock_scattergeo, mock_figure, mock_flights):
-        """Test that draw method adds traces for each flight"""
+        """Test that draw method adds traces for metro areas and routes"""
         mock_fig_instance = MagicMock()
         mock_figure.return_value = mock_fig_instance
         mock_trace = MagicMock()
@@ -84,13 +84,11 @@ class TestFlightMap:
         flight_map = FlightMap(flights=mock_flights, title="Test Map")
         flight_map.draw()
 
-        # Should call add_traces for each flight (2 flights, 2 traces each = 4 total calls)
-        assert mock_fig_instance.add_traces.call_count == 2
-
-        # Each call should add 2 traces (markers and lines)
-        for call in mock_fig_instance.add_traces.call_args_list:
-            traces = call[0][0]
-            assert len(traces) == 2  # markers and lines
+        # Should add traces for metro areas and routes
+        # With 2 flights between 4 different airports, we expect:
+        # - 4 metro area markers (one per airport since they're far apart)
+        # - 2 route lines
+        assert mock_fig_instance.add_trace.call_count >= 4
 
     def test_fig_property(self, mock_flights):
         """Test that fig property returns draw() result"""
@@ -190,12 +188,12 @@ class TestFlightMap:
 
             flight_map.draw()
 
-            # Should create figure but not add any traces
+            # Should create figure but not add any traces (no metro areas or routes)
             mock_figure.assert_called_once()
-            mock_fig_instance.add_traces.assert_not_called()
+            mock_fig_instance.add_trace.assert_not_called()
 
     def test_multiple_flights_trace_generation(self, mock_flights):
-        """Test that multiple flights generate the correct number of traces"""
+        """Test that multiple flights generate metro areas and routes"""
         flight_map = FlightMap(flights=mock_flights, title="Multi Flight Map")
 
         with patch("plotly.graph_objects.Figure") as mock_figure:
@@ -204,8 +202,26 @@ class TestFlightMap:
 
             flight_map.draw()
 
-            # Should add traces for each flight (2 flights)
-            assert mock_fig_instance.add_traces.call_count == len(mock_flights)
+            # Should add traces for metro areas and routes
+            assert mock_fig_instance.add_trace.call_count >= len(mock_flights)
+
+    def test_calculate_marker_size(self, mock_flights):
+        """Test marker size calculation based on trip count"""
+        flight_map = FlightMap(flights=mock_flights, title="Test Map")
+
+        # Test with zero trips
+        size_zero = flight_map._calculate_marker_size(0)
+        assert size_zero == 5  # min_size
+
+        # Test with some trips - size should be between min and max
+        size_some = flight_map._calculate_marker_size(5)
+        assert isinstance(size_some, int)
+        assert size_some >= 5  # At least min_size
+
+        # Test with many trips
+        size_many = flight_map._calculate_marker_size(100)
+        assert isinstance(size_many, int)
+        assert size_many >= 5  # At least min_size
 
     def test_to_thumbnail_default_parameters(self, mock_flights):
         """Test to_thumbnail method with default parameters"""

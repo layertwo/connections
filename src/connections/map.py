@@ -1,9 +1,10 @@
 from enum import Enum
 from functools import lru_cache
+from typing import Dict, Set, Tuple
 
 import plotly.graph_objects as go
 
-from connections.model import Flights
+from connections.model import Flights, MetroArea, consolidate_metro_areas
 
 
 class ImageFormat(Enum):
@@ -17,6 +18,31 @@ class FlightMap:
         self._flights = flights
         self._title = title
         self._image_format = image_format
+        # Consolidate metro areas on initialization
+        self._metro_areas, self._trip_counts = consolidate_metro_areas(flights)
+
+    def _calculate_marker_size(self, trip_count: int, min_size: int = 5, max_size: int = 25) -> int:
+        """Calculate marker size based on trip count"""
+        if trip_count == 0:
+            return min_size
+        # Use logarithmic scaling for better visual distribution
+        import math
+
+        # Get unique metros by name
+        seen_names = set()
+        unique_metros = []
+        for metro in self._metro_areas.values():
+            if metro.name not in seen_names:
+                seen_names.add(metro.name)
+                unique_metros.append(metro)
+
+        max_trips = max((metro.trip_count for metro in unique_metros), default=0)
+        if max_trips == 0:
+            return min_size
+
+        # Logarithmic scale
+        normalized = math.log(trip_count + 1) / math.log(max_trips + 1)
+        return int(min_size + (max_size - min_size) * normalized)
 
     def draw(self, thumbnail: bool = False) -> go.Figure:
         """Generate map from flights and airports
@@ -59,29 +85,46 @@ class FlightMap:
             )
         )
 
-        for flight in self._flights:
-            fig.add_traces(
-                [
-                    # add IATA markers
-                    go.Scattergeo(
-                        lon=[flight.src_lon, flight.dst_lon],
-                        lat=[flight.src_lat, flight.dst_lat],
-                        hoverinfo="text",
-                        text=f"{flight.src_iata} -> {flight.dst_iata}",
-                        mode="markers",
-                        marker=dict(
-                            size=15,
-                            line=dict(width=3),
-                        ),
-                    ),
-                    # add flight line
-                    go.Scattergeo(
-                        lon=[flight.src_lon, flight.dst_lon],
-                        lat=[flight.src_lat, flight.dst_lat],
-                        mode="lines",
+        # Get unique metro areas by name
+        seen_names = set()
+        unique_metros = []
+        for metro in self._metro_areas.values():
+            if metro.name not in seen_names:
+                seen_names.add(metro.name)
+                unique_metros.append(metro)
+
+        # Add metro area markers
+        for metro in unique_metros:
+            marker_size = self._calculate_marker_size(metro.trip_count)
+            fig.add_trace(
+                go.Scattergeo(
+                    lon=[metro.center.longitude],
+                    lat=[metro.center.latitude],
+                    hoverinfo="text",
+                    text=f"{metro.name}<br>Trips: {metro.trip_count}",
+                    mode="markers",
+                    marker=dict(
+                        size=marker_size,
                         line=dict(width=2),
                     ),
-                ]
+                )
+            )
+
+        # Add flight lines between metro areas
+        for (src_name, dst_name), count in self._trip_counts.items():
+            # Find the metro areas by name
+            src_metro = next(m for m in unique_metros if m.name == src_name)
+            dst_metro = next(m for m in unique_metros if m.name == dst_name)
+
+            fig.add_trace(
+                go.Scattergeo(
+                    lon=[src_metro.center.longitude, dst_metro.center.longitude],
+                    lat=[src_metro.center.latitude, dst_metro.center.latitude],
+                    mode="lines",
+                    line=dict(width=1 + count * 0.5),  # Line width scales with trip count
+                    hoverinfo="text",
+                    text=f"{src_name} → {dst_name}<br>Trips: {count}",
+                )
             )
 
         return fig
