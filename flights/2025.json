@@ -1,0 +1,71 @@
+[
+  {
+    "src_iata": "VPS",
+    "dst_iata": "MSP"
+  },
+  {
+    "src_iata": "MSP",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "MSP"
+  },
+  {
+    "src_iata": "MSP",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "LKE",
+    "dst_iata": "CXH"
+  },
+  {
+    "src_iata": "CXH",
+    "dst_iata": "LKE"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "HND"
+  },
+  {
+    "src_iata": "HND",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "LAX"
+  },
+  {
+    "src_iata": "LAX",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "IAD"
+  },
+
+  {
+    "src_iata": "RDU",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "DUB"
+  },
+  {
+    "src_iata": "DUB",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "PAE",
+    "dst_iata": "SAN"
+  },
+  {
+    "src_iata": "SAN",
+    "dst_iata": "PAE"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "TPA"
+  }
+]
