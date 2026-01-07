@@ -14,7 +14,7 @@ connections = "connections.main:cli"
 [tool.poetry.dependencies]
 python = "^3.11"
 airports-py = "3.0.0"
-plotly = "6.5.0"
+plotly = "6.5.1"
 geojson = "3.2.0"
 click = "8.3.1"
 setuptools = "^80.9.0"
