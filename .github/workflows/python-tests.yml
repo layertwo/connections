@@ -9,6 +9,8 @@ on:
       - src/**
       - tests/**
       - .github/workflows/python-tests.yml
+      - pyproject.toml
+      - poetry.lock
 
 jobs:
   test:
