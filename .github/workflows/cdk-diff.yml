@@ -1,50 +1,27 @@
-name: deploy
-
-# This workflow uses OpenID Connect (OIDC) to securely authenticate with AWS
-# without storing long-term access keys.
-#
-# Setup Instructions:
-# 1. Bootstrap CDK: cd cdk && npx cdk bootstrap aws://ACCOUNT-ID/us-east-1
-# 2. Deploy OIDC stack: cd cdk && npm run deploy:oidc
-#    (Set GITHUB_ORG and GITHUB_REPO environment variables first)
-# 3. Add GitHub secret:
-#    - AWS_ROLE_ARN: From OIDC stack output
-#
-# The OIDC stack (cdk/lib/github-oidc.ts) creates:
-# - GitHub OIDC identity provider in AWS
-# - IAM role with permissions to assume CDK bootstrap roles
-# - Proper trust policy for your repository
-#
-# For more information:
-# https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws
+name: cdk-diff
 
 on:
-  push:
+  pull_request:
     branches:
       - mainline
     paths:
       - 'flights/**'
       - 'src/**'
       - 'cdk/**'
-      - '.github/workflows/deploy.yml'
+      - '.github/workflows/cdk-diff.yml'
       - 'pyproject.toml'
       - 'poetry.lock'
-  workflow_dispatch:
-
-
-concurrency:
-  group: deploy
-  cancel-in-progress: false
 
 env:
   AWS_REGION: "us-east-1"
 
 jobs:
-  deploy:
+  diff:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write  # Required for OIDC authentication
+      pull-requests: write  # Required to post comments
 
     steps:
       - name: Checkout code
@@ -101,14 +78,10 @@ jobs:
         working-directory: cdk
         run: npx cdk synth
 
-      - name: CDK Deploy
-        working-directory: cdk
-        run: npx cdk deploy --all --require-approval never --outputs-file outputs.json
-
-      - name: Display deployment outputs
-        working-directory: cdk
-        run: |
-          if [ -f outputs.json ]; then
-            echo "Deployment outputs:"
-            cat outputs.json
-          fi
+      - name: CDK Diff
+        uses: corymhall/cdk-diff-action@v2
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          allowedDestroyTypes: |
+            Custom::CDKBucketDeployment
+          cdkOutDir: cdk/build/cdk.out
