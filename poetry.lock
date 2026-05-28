@@ -232,14 +232,14 @@ toml = ["tomli ; python_full_version <= \"3.11.0a6\""]
 
 [[package]]
 name = "geojson"
-version = "3.2.0"
+version = "3.3.0"
 description = "Python bindings and utilities for GeoJSON"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "geojson-3.2.0-py3-none-any.whl", hash = "sha256:69d14156469e13c79479672eafae7b37e2dcd19bdfd77b53f74fa8fe29910b52"},
-    {file = "geojson-3.2.0.tar.gz", hash = "sha256:b860baba1e8c6f71f8f5f6e3949a694daccf40820fa8f138b3f712bd85804903"},
+    {file = "geojson-3.3.0-py3-none-any.whl", hash = "sha256:a2d885187eeaa8b357600b3fcc9d963cb4300d1694196636dbd7eddc82fd0825"},
+    {file = "geojson-3.3.0.tar.gz", hash = "sha256:92e83b9cb378a450b42f1207bb9b2a031f9fc89185f335153c44369b8b8b71fd"},
 ]
 
 [[package]]
@@ -939,4 +939,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "bbdaf9a8b0b754d555ef7bd9bf490e19469618decea5f71675142f2d1edc926e"
+content-hash = "b02faa8ad9fbcedb08f06b05184cad37b63f2b4136fd41543ddf61c0d0ec2f58"
