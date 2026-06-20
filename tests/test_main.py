@@ -191,7 +191,8 @@ class TestRenderCommand:
             mock_from_dict.return_value = mock_flight
 
             result = runner.invoke(
-                render, ["-i", sample_flight_json_file, "-o", "output.png", "-t", "Test Map"]
+                render,
+                ["-i", sample_flight_json_file, "-o", "output.png", "-t", "Test Map"],
             )
 
             assert result.exit_code == 0

@@ -28,7 +28,7 @@ class TestBatchProcessor:
         mock_airport.return_value = [{"latitude": "40.6413", "longitude": "-73.7781"}]
 
         # Mock FlightMap.save to avoid actual file I/O
-        mock_save = mocker.patch("connections.map.FlightMap.save")
+        mock_save = mocker.patch("connections.map.FlightMap.save_with_thumbnail")
 
         # Act
         processor = BatchProcessor(str(input_dir), str(output_dir))
@@ -52,7 +52,7 @@ class TestBatchProcessor:
 
         mock_airport = mocker.patch("connections.model.airport_data.get_airport_by_iata")
         mock_airport.return_value = [{"latitude": "40.6413", "longitude": "-73.7781"}]
-        mocker.patch("connections.map.FlightMap.save")
+        mocker.patch("connections.map.FlightMap.save_with_thumbnail")
 
         # Act
         processor = BatchProcessor(str(input_dir), str(output_dir))
@@ -100,7 +100,7 @@ class TestBatchProcessor:
 
         mock_airport = mocker.patch("connections.model.airport_data.get_airport_by_iata")
         mock_airport.return_value = [{"latitude": "40.6413", "longitude": "-73.7781"}]
-        mocker.patch("connections.map.FlightMap.save")
+        mocker.patch("connections.map.FlightMap.save_with_thumbnail")
 
         # Act
         processor = BatchProcessor(str(input_dir), str(output_dir))
@@ -149,7 +149,7 @@ class TestBatchProcessor:
 
         mock_airport = mocker.patch("connections.model.airport_data.get_airport_by_iata")
         mock_airport.return_value = [{"latitude": "40.6413", "longitude": "-73.7781"}]
-        mocker.patch("connections.map.FlightMap.save")
+        mocker.patch("connections.map.FlightMap.save_with_thumbnail")
 
         # Act
         processor = BatchProcessor(str(input_dir), str(output_dir))
