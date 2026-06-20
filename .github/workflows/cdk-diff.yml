@@ -10,7 +10,6 @@ on:
       - 'cdk/**'
       - '.github/workflows/cdk-diff.yml'
       - 'pyproject.toml'
-      - 'poetry.lock'
 
 env:
   AWS_REGION: "us-east-1"
@@ -25,31 +24,27 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
-      # Python/Poetry Setup
-      - name: Install poetry
-        run: pipx install poetry
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.2.0
         with:
-          python-version: '3.14'
-          cache: 'poetry'
+          enable-cache: true
+          cache-dependency-glob: 'uv.lock'
 
-      - name: Install Python dependencies
-        run: poetry install
+      - name: Install dependencies
+        run: uv sync --python 3.14
 
       # Generate Flight Maps
       - name: Generate flight maps
         run: |
           mkdir -p output
-          poetry run connections batch -d flights -o output
+          uv run connections batch -d flights -o output
         continue-on-error: false
 
       # Generate Index Page
       - name: Generate index page
-        run: poetry run connections index -d output -o output/index.html
+        run: uv run connections index -d output -o output/index.html
         continue-on-error: false
 
       # Node.js/CDK Setup

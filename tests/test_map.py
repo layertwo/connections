@@ -255,9 +255,10 @@ class TestFlightMap:
         """Test save_with_thumbnail method creates both full and thumbnail images"""
         flight_map = FlightMap(flights=mock_flights, title="Test Map")
 
-        with patch.object(flight_map, "to_image") as mock_to_image, patch.object(
-            flight_map, "to_thumbnail"
-        ) as mock_to_thumbnail:
+        with (
+            patch.object(flight_map, "to_image") as mock_to_image,
+            patch.object(flight_map, "to_thumbnail") as mock_to_thumbnail,
+        ):
             mock_to_image.return_value = b"mock_full_image"
             mock_to_thumbnail.return_value = b"mock_thumbnail_image"
 
