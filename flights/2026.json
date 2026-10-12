@@ -1,0 +1,46 @@
+[
+  {
+    "src_iata": "MIA",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "DCA"
+  },
+  {
+    "src_iata": "DCA",
+    "dst_iata": "BNA"
+  },
+  {
+    "src_iata": "BNA",
+    "dst_iata": "AUS"
+  },
+  {
+    "src_iata": "AUS",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "SNA"
+  },
+  {
+    "src_iata": "SNA",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "IAD"
+  },
+  {
+    "src_iata": "IAD",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
+    "dst_iata": "CMH"
+  },
+  {
+    "src_iata": "CMH",
+    "dst_iata": "SEA"
+  }
+]
