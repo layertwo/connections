@@ -58,7 +58,7 @@ export class ConnectionsStack extends Stack {
         });
 
         const oac = new S3OriginAccessControl(this, "OAC", {
-            signing: Signing.SIGV4_ALWAYS
+            signing: Signing.SIGV4_ALWAYS,
         });
 
         // Create CloudFront distribution
