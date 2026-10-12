@@ -77,7 +77,11 @@ jobs:
         uses: corymhall/cdk-diff-action@v2
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+          # Replacing a BucketDeployment recreates its Lambda and execution role/policy
           allowedDestroyTypes: |
             Custom::CDKBucketDeployment
             AWS::Lambda::LayerVersion
+            AWS::Lambda::Function
+            AWS::IAM::Role
+            AWS::IAM::Policy
           cdkOutDir: cdk/build/cdk.out
