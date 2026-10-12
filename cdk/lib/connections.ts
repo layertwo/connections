@@ -82,6 +82,8 @@ export class ConnectionsStack extends Stack {
             distribution,
             distributionPaths: ["/*"],
             prune: true,
+            // default 128 MB OOMs while syncing the ~30 MB output asset
+            memoryLimit: 1024,
         });
 
         // Create A record pointing to CloudFront distribution
