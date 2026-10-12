@@ -7,11 +7,11 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "airports-py==3.1.0",
-    "plotly==6.9.0",
+    "plotly==7.1.0",
     "geojson==3.3.0",
-    "click==8.4.2",
+    "click==8.5.0",
     "setuptools>=82.0.0",
-    "kaleido==1.4.0",
+    "kaleido==1.5.0",
     "jinja2==3.1.6",
 ]
 
@@ -24,9 +24,9 @@ connections = "connections.main:cli"
 [dependency-groups]
 dev = [
     "isort==8.0.1",
-    "black==26.5.1",
+    "black==26.10.1",
     "pytest==9.1.1",
-    "pytest-mock==3.15.1",
+    "pytest-mock==3.16.0",
     "pytest-cov==7.1.0",
     "pytest-xdist==3.8.0",
     "hypothesis>=6.98.0",
