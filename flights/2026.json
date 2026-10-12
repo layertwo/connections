@@ -21,6 +21,14 @@
   },
   {
     "src_iata": "SEA",
+    "dst_iata": "BOS"
+  },
+  {
+    "src_iata": "BOS",
+    "dst_iata": "SEA"
+  },
+  {
+    "src_iata": "SEA",
     "dst_iata": "SNA"
   },
   {
