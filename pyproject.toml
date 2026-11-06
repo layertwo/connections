@@ -25,7 +25,7 @@ connections = "connections.main:cli"
 dev = [
     "isort==9.0.2",
     "black==26.10.1",
-    "pytest==9.1.1",
+    "pytest==9.2.0",
     "pytest-mock==3.17.0",
     "pytest-cov==7.1.0",
     "pytest-xdist==3.8.0",
